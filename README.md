@@ -63,14 +63,14 @@ CREATING FIBERS:
 
 To create a fiber, you invoke the Fibers::create() method:
  
-     fibers.create(foo,foo_arg,4000); // Stack for foo is 4000 bytes
+     fibers.create(foo,foo_arg,1000); // Stack for foo is 1000 bytes
      
 It returns an unsigned number > 0 for identification if you
 need it (main is always zero). This example will start function:
  
      void foo(void *foo_arg)
  
-with an allocated stack of 4000 bytes.
+with an allocated stack of 1000 bytes.
  
 Additional fiber (coroutines) can be created from any executing
 fiber context.
@@ -106,7 +106,7 @@ CLASS API:
     template <unsigned max_fibers=16>
     class Fibers {
         ...
-    public: Fibers(uint32_t main_stack=8192,bool instrument=false,uint32_t pattern_override=0xA5A5A5A5);
+    public: Fibers(uint32_t main_stack=1024,bool instrument=false,uint32_t pattern_override=0xA5A5A5A5);
         inline uint32_t size() { return n_fibers; }     // Return the current # of coroutines
   
         unsigned create(fiber_func_t func,void *arg,uint32_t stack_size);

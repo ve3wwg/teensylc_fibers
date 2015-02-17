@@ -60,7 +60,7 @@ struct fiber_t {
 // There must only be ONE instance of this class defined
 //////////////////////////////////////////////////////////////////////
 
-template <unsigned max_fibers=16>
+template <unsigned max_fibers=8>
 class Fibers {
 	volatile fiber_t	fibers[max_fibers];	// Collection of fiber states
 	volatile uint16_t	n_fibers;		// Number of active fibers
@@ -70,7 +70,7 @@ class Fibers {
 
 	uint32_t *end_stack();				// Return end of stack address (requires _sstack)
 
-public:	Fibers(uint32_t main_stack=8192,bool instrument=false,uint32_t pattern_override=0xA5A5A5A5);
+public:	Fibers(uint32_t main_stack=1024,bool instrument=false,uint32_t pattern_override=0xA5A5A5A5);
 	inline uint32_t size() { return n_fibers; }	// Return the current # of coroutines
 
 	unsigned create(fiber_func_t func,void *arg,uint32_t stack_size);
@@ -399,18 +399,18 @@ Fibers<max_fibers>::end_stack() {
 // that declares the maximum number of fibers you intend to create.
 // By default 15 fibers + main are assumed.
 //
-//     Fibers<> fibers;            // Defaults to 15 + main fibers max
+//     Fibers<> fibers;            // Defaults to 7 + main fibers max
 //     Fibers<4> fibers;           // Up to 3 fibers + main
 //
-// By default 8K of stack is reserved for the main fiber. To change
+// By default 1K of stack is reserved for the main fiber. To change
 // the allocation for main (only), specify a stack size:
 //
-//     Fibers<4> fibers(3000);     // Allocate 3000 bytes to main stack
+//     Fibers<4> fibers(1100);     // Allocate 1100 bytes to main stack
 //
 // To instrument the stack for determining stack size, add the
 // boolean true parameter:
 //
-//     Fibers<4> fibers(3000,true); // Use a main stack of 3000 bytes, and
+//     Fibers<4> fibers(1100,true); // Use a main stack of 1100 bytes, and
 //                                  // instrument stack for size checks    
 // 
 // Once this has been done, stack space has been reserved for the
@@ -418,14 +418,14 @@ Fibers<max_fibers>::end_stack() {
 // 
 // To create a fiber, you invoke the Fibers::create() method:
 // 
-//     fibers.create(foo,foo_arg,4000); // Stack for foo is 4000 bytes
+//     fibers.create(foo,foo_arg,1000); // Stack for foo is 1000 bytes
 // 
 // It returns an unsigned number > 0 for identification if you
 // need it (main is always zero). This example will start function:
 // 
 //     void foo(void *foo_arg)
 // 
-// with an allocated stack of 4000 bytes.
+// with an allocated stack of 1000 bytes.
 // 
 // Additional fiber (coroutines) can be created from any executing 
 // fiber context.
