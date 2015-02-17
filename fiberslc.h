@@ -10,6 +10,11 @@
 // mk20dx256.ld (or in my case mk20dx256_sbrk.ld).
 //
 // See the end of this file for more information
+//
+// CONTRIBUTIONS:
+//
+// Colin Duffy	Feb 2015, for testing and working through the port on
+//              a Teensy-LC.
 ///////////////////////////////////////////////////////////////////////
 
 #ifndef FIBERSLC_H
