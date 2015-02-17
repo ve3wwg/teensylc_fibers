@@ -7,7 +7,7 @@ This is a Teensy-LC Lightweight Fibers Project, derived from the teensy3_fibers 
 Status:
 -------
 
-This is being ported to the Teensy-LC and is not yet complete.
+This library has been successfully ported to the Cortex-M0.
 
 
 HOW TO:
@@ -26,7 +26,7 @@ Then start your Arduino IDE, and pull down the menu Sketch->Import
 Library. At the bottom of the menu, underneath "Contributed", select the
 entry "fibers". If successful, the line
 
-#include <fiberslc.h> 
+    #include <fiberslc.h> 
 
 should appear in your sketch.
 
